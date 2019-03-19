@@ -1,3 +1,44 @@
-<p>
-  login works!
-</p>
+<div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+              <div class="card-body">
+                <h5 class="card-title text-center">Sign In</h5>
+                <form class="form">
+                  <div class="form-group">
+                    <label for="inputEmail">Login</label>
+                    <input type="text" id="inputEmail" class="form-control" name="login"
+                     placeholder="Login or user name" required
+                     [(ngModel)]="user.login"
+                     > 
+                  </div>
+    
+                  <div class="form-group mt-3">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" [(ngModel)]="user.password" id="inputPassword" class="form-control"
+                     placeholder="Password" name="password" required>
+                    
+                  </div>
+    
+                  <div class="custom-control custom-checkbox mb-3 mt-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1"> Remember password</label>
+                  </div>
+                  <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)="singIn()" type="submit">Sign in</button>
+
+                  
+                  <hr class="my-4">
+                  <button class="btn btn-lg btn-danger btn-block text-uppercase" type="submit"><i class="fa fa-google mr-2"></i> Sign in with Google</button>
+                  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit"><i class="fa fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+                {{user | json}}
+        </div>
+</div>
+
+      
