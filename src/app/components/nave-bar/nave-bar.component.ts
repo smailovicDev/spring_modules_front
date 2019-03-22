@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nave-bar',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NaveBarComponent implements OnInit {
 
-  constructor() { }
+  userName: string = null;
+
+  constructor( private jwtHelper: JwtHelperService, private router: Router) { 
+
+  }
 
   ngOnInit() {
+     this.userName = this.jwtHelper.decodeToken(localStorage.getItem('Authorization')).sub ;
+  }
+
+
+  showNaveBar(){
+
+    const jwt = localStorage.getItem('Authorization');
+    const isExpired= this.jwtHelper.isTokenExpired( jwt );
+    return !isExpired;
+  }
+
+  logout(){
+    localStorage.removeItem('Authorization');
+    this.router.navigate(['/login']);
+
   }
 
 }

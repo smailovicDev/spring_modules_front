@@ -9,7 +9,7 @@ export class UsersService {
 
   // header: HttpHeaders = new HttpHeaders().set("Content-Type", "application/json");
 
-   headers = new HttpHeaders({'Content-Type': 'application/json', 'Authorization':''});
+   headers = new HttpHeaders({'Content-Type': 'application/json'});
    options = { headers: this.headers };
 
   constructor(private http: HttpClient) { }

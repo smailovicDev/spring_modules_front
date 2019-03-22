@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksService } from 'src/app/services/tasks.service';
+import { Task } from 'src/app/entities/task';
 
 @Component({
   selector: 'app-show-tasks',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowTasksComponent implements OnInit {
 
-  constructor() { }
+  tasks: Task[];
+  constructor(private taskService: TasksService) { }
 
   ngOnInit() {
+
+    this.getTasks();
   }
+
+  getTasks(){
+    this.taskService.getTasks().subscribe( (res: Task[]) => { this.tasks = res 
+    });
+  }
+
+
 
 }

@@ -15,7 +15,7 @@ import { UpdateRoleComponent } from './components/roles/update-role/update-role.
 import { ShowTasksComponent } from './components/tasks/show-tasks/show-tasks.component';
 import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
 import { UpdateTaskComponent } from './components/tasks/update-task/update-task.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule}   from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -24,7 +24,15 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtModule } from '@auth0/angular-jwt';
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
+import { MyHttpInterceptor } from './interceptor/my-http-interceptor';
+import { RegisterComponent } from './components/register/register.component';
 
+
+export function tokenGetter() {
+  return localStorage.getItem('Authorization');
+}
 
 @NgModule({
   declarations: [
@@ -43,6 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UpdateTaskComponent,
     LoginComponent,
     PageNotFoundComponent,
+    RegisterComponent,
    
   ],
   imports: [
@@ -54,9 +63,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonModule,
     TableModule,
     DialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        authScheme: '',
+        whitelistedDomains: ['localhost:8080'],
+        blacklistedRoutes: []
+      }
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

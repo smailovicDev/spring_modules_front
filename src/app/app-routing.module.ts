@@ -11,25 +11,28 @@ import { UpdateUserComponent } from './components/users/update-user/update-user.
 import { ShowRolesComponent } from './components/roles/show-roles/show-roles.component';
 import { AddRoleComponent } from './components/roles/add-role/add-role.component';
 import { UpdateRoleComponent } from './components/roles/update-role/update-role.component';
+import { AuthGuardGuard } from './guard/auth-guard.guard';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-{ path:'',redirectTo:'/tasks', pathMatch:'full'},
+{ path:'',redirectTo:'/tasks', pathMatch:'full', canActivate:[ AuthGuardGuard]},
 { path:'login' , component: LoginComponent},
+{ path:'register' , component: RegisterComponent},
 { path:'tasks', children:[
   { path:'', component: ShowTasksComponent},
   { path:'add', component: AddTaskComponent},
   { path:'edit/:id', component: UpdateTaskComponent}
-]},
+] , canActivate:[ AuthGuardGuard]},
 { path:'users', children:[
   { path:'', component: ShowUsersComponent},
   { path:'add', component: AddUserComponent},
   { path:'edit/:id', component: UpdateUserComponent}
-]},
+] , canActivate:[ AuthGuardGuard]},
 { path:'roles', children:[
   { path:'', component: ShowRolesComponent},
   { path:'add', component: AddRoleComponent},
   { path:'edit/:id', component: UpdateRoleComponent}
-]},
+] , canActivate:[ AuthGuardGuard]},
 { path:'**', component: PageNotFoundComponent}
 ];
 
