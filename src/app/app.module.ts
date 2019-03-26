@@ -28,6 +28,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { jsonpCallbackContext } from '@angular/common/http/src/module';
 import { MyHttpInterceptor } from './interceptor/my-http-interceptor';
 import { RegisterComponent } from './components/register/register.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { ProgressDirective } from './directives/progress.directive';
+import { NotIfDirective } from './directives/not-if.directive';
+
 
 
 export function tokenGetter() {
@@ -52,6 +56,8 @@ export function tokenGetter() {
     LoginComponent,
     PageNotFoundComponent,
     RegisterComponent,
+    ProgressDirective,
+    NotIfDirective,
    
   ],
   imports: [
@@ -64,6 +70,7 @@ export function tokenGetter() {
     TableModule,
     DialogModule,
     BrowserAnimationsModule,
+    NgxEditorModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -73,6 +80,7 @@ export function tokenGetter() {
       }
     })
   ],
+  
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
   ],

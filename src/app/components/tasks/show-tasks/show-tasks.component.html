@@ -1,9 +1,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
-      <div class="card card-signin my-5">
-        <div class="card-body">
+    <div class="col-sm-12 col-md-12 col-lg-12 mx-auto my-5">
+      <!-- <div class="card card-signin my-5">
+        <div class="card-body"> -->
 
             <table class="table table-hover">
                 <thead>
@@ -11,6 +11,11 @@
                     <th scope="col">id</th>
                     <th scope="col"> Task name </th>
                     <th scope="col"> Description </th>
+                    <th scope="col"> Num de série </th>
+                    <th scope="col"> Date creation </th>
+                    <th scope="col"> Date fin </th>
+                    <th scope="col"> statut </th>
+                    <th scope="col"> % d'avancement </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -18,13 +23,18 @@
                     <td> {{ task.id }}</td>
                     <td> {{ task.taskName }} </td>
                     <td> {{ task.description }} </td>
+                    <td> {{ task.serId }}</td>
+                    <td> {{ task.dateCreation | date }} </td>
+                    <td> {{ task.dateFin | date }} </td>
+                    <td> {{ task.status }}</td>
+                    <td> {{ task.pourcent }}</td>
                   </tr>
                 </tbody>
               </table>
-              <button class="btn btn-lg btn-primary " type="submit">
+              <button class="btn btn-sm btn-block btn-primary my-5 " [routerLink]="[ '/tasks/add']"   type="submit">
                 Add task </button>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  <!-- </div> -->
+<!-- </div> -->
