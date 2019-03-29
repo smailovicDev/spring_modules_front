@@ -1,49 +1,102 @@
 
 <div class="container">
+
     <div class="row">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" name="useReactive" id="useReactive" 
+          [(ngModel)]="useReactive"
+          >
+          Use reactive forms
+        </label>
+      </div>
+    </div>
+    <div class="row" *ngIf="!useReactive">
         <div class="col-sm-12 col-md-12 col-lg-12 mx-auto my-3">
           <form >
           <div class="form-group">
-            <label for="taskName"></label>
+            <label for="taskName"> Task name</label>
             <input type="text" name="taskName" id="taskName" class="form-control" [(ngModel)]="task.taskName"   
-             placeholder="" aria-describedby="helpId">
+             placeholder="" aria-describedby="helpId" [appForbiddenValidator]="task"   #taskName="ngModel" minlength="3" required>
           </div>
-          <div class="form-group">
-              <label for="description"></label>
-              <!-- <textarea name="description" id="description" class="form-control"[(ngModel)]="task.description"
-               placeholder="" aria-describedby="helpId"  minlength="50" > </textarea> -->
-               <app-ngx-editor name="description" id="description" 
-                [placeholder]="'Enter text here...'"  [(ngModel)]="task.description" ></app-ngx-editor>
+
+          <!-- create reference to our input by using # followed by the reference example #taskName then use this reference to check
+          validity of our input see the example bellow  -->
+
+          <div class="alert alert-danger"
+           *ngIf="taskName.invalid && (taskName.touched || taskName.dirty)" role="alert">
+            <div *ngIf="taskName.errors.required">
+              this field is required !!
+            </div>
+            <div *ngIf="taskName.errors.minlength" >
+              min length is 3 !!
+            </div>
+            <div *ngIf="taskName.errors.forbiddenName" >
+              Error this is a forbidden name !!
+            </div>
           </div>
+          <!-- this was an example of input validation useing html and input reference  -->
+          <!-- app-ngx-editor is and custom ckEditor from ngx bootstrap we need to install it first the we can user lik this  -->
           <div class="form-group">
-              <label for="serId"></label>
+              <label for="description"> Description</label>
+               <app-ngx-editor name="description" id="description"  #description="ngModel" required minlength="3"
+                [placeholder]="'Set description her ...'"  [(ngModel)]="task.description" ></app-ngx-editor>
+          </div>
+          <!-- even ckEditor form ngx bootstrap we can check the validity of his contents like this easy way  -->
+
+          <div class="alert alert-danger"
+           *ngIf="description.invalid && (description.touched || description.dirty)" role="alert">
+            <div *ngIf="description.errors.required">
+              this field is required !!
+            </div>
+            <div *ngIf="description.errors.minlength" >
+                min length is 3 !!
+              </div>
+          </div>
+
+          <div class="form-group">
+              <label for="serId"> Serial id</label>
               <input type="number" name="serId" id="serId" class="form-control" [(ngModel)]="task.serId" max="80000" min="99"
               placeholder="" aria-describedby="helpId">
           </div>
+
+          <!-- in this input we use date picker from ngx bootstrap agin, we can use browser date picker it work fine but
+          the probleme that every browser use his custom implementation so we can use a generic one like this ;) -->
+
           <div class="form-group">
-              <label for="dateCreation"></label>
-              <input type="datetime" name="dateCreation" id="dateCreation"  
-               class="form-control"[(ngModel)]="task.dateCreation " placeholder="" aria-describedby="helpId">
+              <label for="dateCreation"> Date creation</label>
+              <input type="text" name="dateCreation" id="dateCreation" 
+               bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
+               class="form-control"[(ngModel)]="task.dateCreation" placeholder="" aria-describedby="helpId">
           </div>
           <div class="form-group">
-              <label for="dateFin"></label>
-              <input type="datetime" name="dateFin" id="dateFin" class="form-control"[(ngModel)]="task.dateFin"
-               placeholder="" aria-describedby="helpId">
+              <label for="dateFin"> Date fin </label>
+              <input type="text" name="dateFin" id="dateFin" class="form-control"
+               bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
+              [(ngModel)]="task.dateFin" placeholder="" aria-describedby="helpId">
           </div>
+
           <div class="form-check">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input" name="status" id="status" [(ngModel)]="task.status" >
               Task Status
             </label>
+
+            <!-- appNotIf is a custom strictural directive that work as the opposite of ngif
+            directive we create this as an example of how to createa custom strictural directive -->
             <p *appNotIf="task.status" >
                 This paragraph is displayed because task status is false.
             </p>
           </div>
+
           <div class="form-group">
             <label for="pourcent"></label>
             <input type="number" name="pourcent" id="pourcent" class="form-control" [(ngModel)]="task.pourcent"
             placeholder="" aria-describedby="helpId" max="100" min="0"  >
             <div class="progress my-2">
+              <!-- in the example bellow we will see an other type of directive attribute directive
+              it can help us to do custom work in our html component our appProgress directive 
+              help us to change the style of progress barre in the html  -->
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" 
                 aria-valuemin="0" aria-valuemax="100"   [appProgress]="task.pourcent" [otherValue]="50"
                 >
@@ -53,8 +106,104 @@
                 </div>
               </div>
           </div>
+          <button class="btn btn-sm btn-block btn-primary my-5 " (click)="saveTask()"   type="submit"> Save </button>
         </form>
         </div>
     </div>
-    {{ task | json}}
+
+    <!-- the following code is a simple example of reactive
+    froms explain how we can use and bind data to the reactive forms -->
+
+    <div class="row" *ngIf="useReactive">
+        <div class="col-sm-12 col-md-12 col-lg-12 mx-auto my-3">
+
+          <!-- we use [formGroup] directive to bin our form with taskForm object instantiated with formBuilder as a formGroup
+          in our component ( see the constructor ) then we can bind the properties of this object
+          to our from with formControlName directive  -->
+
+          <form [formGroup]="taskForm" (ngSubmit)="onSubmitReactive( )" >
+          <div class="form-group">
+            <label for="taskName"> Task name</label>
+            <input type="text" name="taskName" id="taskName" class="form-control"  formControlName="taskName"
+             placeholder="" aria-describedby="helpId" >
+          </div>
+
+          <div *ngIf="taskF.taskName.invalid && (taskF.taskName.touched || taskF.taskName.dirty)" >
+            <div *ngIf="taskF.taskName.errors.required"  class="alert alert-danger " >
+              this field is required !!
+            </div>
+            <div *ngIf="taskF.taskName.errors.minlength"  class="alert alert-danger " >
+                this field should contains more than 3 characters !!
+            </div>
+            <div *ngIf="taskF.taskName.errors.maxlength"  class="alert alert-danger " >
+                this field should contains less than 10 characters !!
+            </div>
+            <div *ngIf="taskF.taskName.errors.forbiddenName"  class="alert alert-danger " >
+              This is forbidden name try an other one !!
+            </div>
+            <div *ngIf="taskF.taskName.errors.pattern"  class="alert alert-danger " >
+              task name should match the pattern  !!
+            </div>
+
+          </div>
+          
+          <div class="form-group">
+              <label for="description"> Description</label>
+               <app-ngx-editor name="description" id="description" formControlName="description"
+                [placeholder]="'Set description her ...'"  ></app-ngx-editor>
+          </div>
+         
+          <div class="form-group">
+              <label for="serId"> Serial id</label>
+              <input type="number" name="serId" id="serId" class="form-control" formControlName="serId"
+              placeholder="" aria-describedby="helpId">
+          </div>
+
+          <div class="form-group">
+              <label for="dateCreation"> Date creation</label>
+              <input type="text" name="dateCreation" id="dateCreation" 
+               bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
+               class="form-control" formControlName="dateCreation" placeholder="" aria-describedby="helpId">
+          </div>
+          <div class="form-group">
+              <label for="dateFin"> Date fin </label>
+              <input type="text" name="dateFin" id="dateFin" class="form-control"
+               bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
+               formControlName="dateFin" placeholder="" aria-describedby="helpId">
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" name="status" id="status" formControlName="status" >
+              Task Status
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="pourcent"></label>
+            <input type="number" name="pourcent" id="pourcent" class="form-control" formControlName="pourcent"
+            placeholder="" aria-describedby="helpId" max="100" min="0"  >
+            <div class="progress my-2">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                aria-valuemin="0" aria-valuemax="100"   [appProgress]="pourcent.value" [otherValue]="50">
+                <!-- we should create agetter of pourcent typescript code  -->
+                  {{ pourcent.value }} % Complete
+                </div>
+            </div>
+          </div>
+         
+          <button class="btn btn-sm btn-block btn-primary my-5" *ngIf="taskForm.status != 'INVALID'" type="submit"> Save reactive </button>
+        </form>
+        </div>
+        
+    </div>
+  
+    
+
+
+
+
+
+
+
 </div>

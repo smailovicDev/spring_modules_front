@@ -16,7 +16,8 @@ export class NaveBarComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.userName = this.jwtHelper.decodeToken(localStorage.getItem('Authorization')).sub ;
+     this.userName = this.jwtHelper.decodeToken(localStorage.getItem('Authorization'))?
+     this.jwtHelper.decodeToken(localStorage.getItem('Authorization')).sub: '' ;
   }
 
 

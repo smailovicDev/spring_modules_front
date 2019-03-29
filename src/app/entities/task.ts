@@ -20,4 +20,6 @@ export class Task {
         this.status = status ? status : false;
         this.pourcent = pourcent ? pourcent : 0;
     }
+
+
 }

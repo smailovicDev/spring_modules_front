@@ -16,7 +16,7 @@ import { ShowTasksComponent } from './components/tasks/show-tasks/show-tasks.com
 import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
 import { UpdateTaskComponent } from './components/tasks/update-task/update-task.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {FormsModule}   from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, NG_VALIDATORS}   from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,6 +31,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { ProgressDirective } from './directives/progress.directive';
 import { NotIfDirective } from './directives/not-if.directive';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { ForbiddenValidatorDirective } from './directives/forbidden-validator.directive';
 
 
 
@@ -58,6 +60,7 @@ export function tokenGetter() {
     RegisterComponent,
     ProgressDirective,
     NotIfDirective,
+    ForbiddenValidatorDirective,
    
   ],
   imports: [
@@ -71,6 +74,8 @@ export function tokenGetter() {
     DialogModule,
     BrowserAnimationsModule,
     NgxEditorModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -82,7 +87,7 @@ export function tokenGetter() {
   ],
   
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Task } from '../entities/task';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class TasksService {
     //this.headers.set('Authorization', localStorage.getItem('Authorization'))
     
     return this.http.get('http://localhost:8080/tasks');
+  }
+
+  saveTask( task: Task){
+    return this.http.post('http://localhost:8080/tasks', task );
   }
 
 

@@ -3,7 +3,7 @@ import { Directive, Input, ElementRef, SimpleChanges, OnInit, OnChanges } from '
 @Directive({
   selector: '[appProgress]'
 })
-export class ProgressDirective implements OnInit, OnChanges{
+export class ProgressDirective implements OnInit{
 
   // @Input('appProgress') value : number;
    @Input('otherValue') other: number; 
@@ -14,12 +14,12 @@ export class ProgressDirective implements OnInit, OnChanges{
   ngOnInit(): void {
   //  this.el.nativeElement.style.backgroundColor = this.value;
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    console.log(this.other);
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+  //   //Add '${implements OnChanges}' to the class.
+  //   console.log(this.other);
 
-  }
+  // }
 
   @Input() set appProgress( pourcent: number){
 
