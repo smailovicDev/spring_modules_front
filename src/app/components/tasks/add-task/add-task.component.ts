@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { Task } from 'src/app/entities/task';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Router } from '@angular/router';
 import { FormBuilder, AbstractControl } from '@angular/forms';
 import { ReactiveTask } from 'src/app/entities/reactive-task';
+import { ProgressDirective } from '../../../directives/progress.directive';
 
 
 @Component({
@@ -16,10 +17,13 @@ import { ReactiveTask } from 'src/app/entities/reactive-task';
 // we already use task class to save manipulate our task now we going to switch to reactive forms.
 
 export class AddTaskComponent implements OnInit {
-
+  
   useReactive: boolean = false;
   task: Task;
   taskForm: any;
+  @ViewChild(ProgressDirective)
+  private progressDirective: ProgressDirective; 
+
 // to create reactive forms we can use formGroupe with formControle classes or simply inject formBuilder service  
   constructor( private taskService: TasksService, private router: Router,
      private formBuilder: FormBuilder) { }
@@ -65,6 +69,19 @@ export class AddTaskComponent implements OnInit {
   // this is more easy and shourt ;)
   get taskF(){
     return this.taskForm.controls;
-  } 
+  }
 
+  // this function receve data from the progress directive as output look at progress
+  // in html template you will fin a function binded like this (pourcentVal)="onPourcent($event)"
+  // the directive send the value to the component as output by the EventEmitter 
+  onPourcent(pourcent: number) {
+    console.log( pourcent);
+  }
+
+  getVal(){
+    console.log(this.progressDirective.other);
+  }
+
+
+ 
 }

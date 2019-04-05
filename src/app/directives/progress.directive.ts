@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, SimpleChanges, OnInit, OnChanges } from '@angular/core';
+import { Directive, Input, ElementRef, SimpleChanges, OnInit, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Directive({
   selector: '[appProgress]'
@@ -6,7 +6,8 @@ import { Directive, Input, ElementRef, SimpleChanges, OnInit, OnChanges } from '
 export class ProgressDirective implements OnInit{
 
   // @Input('appProgress') value : number;
-   @Input('otherValue') other: number; 
+   @Input('otherValue') other: number;
+   @Output() pourcentVal= new EventEmitter<number>();
   constructor( private el: ElementRef ) { 
     
   }
@@ -25,6 +26,7 @@ export class ProgressDirective implements OnInit{
 
     this.el.nativeElement.style.backgroundColor = (pourcent <50 ) ? 'blue':'green';
     this.el.nativeElement.style.width = pourcent+'%';
+    this.pourcentVal.emit(pourcent);
   }
 
 }

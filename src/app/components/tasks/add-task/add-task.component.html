@@ -92,13 +92,14 @@
           <div class="form-group">
             <label for="pourcent"></label>
             <input type="number" name="pourcent" id="pourcent" class="form-control" [(ngModel)]="task.pourcent"
-            placeholder="" aria-describedby="helpId" max="100" min="0"  >
+            placeholder="" aria-describedby="helpId" max="100" min="0"  (click)="getVal()"  >
             <div class="progress my-2">
               <!-- in the example bellow we will see an other type of directive attribute directive
               it can help us to do custom work in our html component our appProgress directive 
               help us to change the style of progress barre in the html  -->
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" 
-                aria-valuemin="0" aria-valuemax="100"   [appProgress]="task.pourcent" [otherValue]="50"
+                aria-valuemin="0" aria-valuemax="100" (pourcentVal)="onPourcent($event)"
+                [appProgress]="task.pourcent" [otherValue]="task.pourcent"
                 >
                 <!-- progress and otherValue are attribute of progress directive   -->
                 <!-- [ngStyle]="{'width': task.pourcent +'%' }" -->
@@ -197,13 +198,5 @@
         </div>
         
     </div>
-  
-    
-
-
-
-
-
-
 
 </div>

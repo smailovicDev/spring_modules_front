@@ -23,7 +23,7 @@ export class TasksService {
   }
 
   saveTask( task: Task){
-    return this.http.post('http://localhost:8080/tasks', task );
+    return this.http.post('http://localhost:8080/tasks', task);
   }
 
 

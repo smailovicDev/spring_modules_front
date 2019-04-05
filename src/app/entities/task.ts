@@ -1,7 +1,7 @@
 export class Task {
 
     private id?: number;
-    private taskName: string;
+    public taskName: string;
     private description: string;
     private serId: number;
     private dateCreation: Date;
@@ -19,6 +19,10 @@ export class Task {
         this.dateFin = dateFin ? dateFin : new Date() ;
         this.status = status ? status : false;
         this.pourcent = pourcent ? pourcent : 0;
+    }
+
+    get TaskName() {
+        return this.taskName;
     }
 
 
