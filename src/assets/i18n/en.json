@@ -1,0 +1,21 @@
+{
+    "task":{
+        "id":"Id",
+        "name":"Name",
+        "description":"Description",
+        "numSerie": "Serial number",
+        "dateCreation": "Creation date",
+        "finaleDate": "Finale date",
+        "statut": "Status",
+        "avancement":"Progress",
+        "add":"Add task", 
+        "save":"Save",
+        "tasks":"Tasks",
+        "users":"Users",
+        "Roles":"roles"
+        },
+    "useReactive":"Use Reactive forms",
+    "logout": "Logout",
+    "English":"English",
+    "Frensh":"Frensh"
+}

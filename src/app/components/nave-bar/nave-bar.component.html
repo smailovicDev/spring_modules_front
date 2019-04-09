@@ -8,13 +8,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/tasks']" > Tasks <span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="['/tasks']" >  {{'task.tasks' | translate }} <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/users']" >Users</a>
+        <a class="nav-link" [routerLink]="['/users']" >{{'task.users' | translate }}</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/roles']" >Roles</a>
+          <a class="nav-link" [routerLink]="['/roles']" >{{'task.Roles' | translate }}</a>
         </li>
     </ul>
     <div class="my-2 my-lg-0">
@@ -23,7 +23,17 @@
               <a class="nav-link" href="#"> {{ userName }} <span class="sr-only">(current)</span></a>
         </li>
             <li class="nav-item active">
-              <a class="nav-link " style="cursor: pointer;" (click)="logout()"  > Logout <span class="sr-only">(current)</span></a>
+              <a class="nav-link " style="cursor: pointer;" (click)="logout()"  > {{'logout' | translate }} <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <div class="form-group">
+            <label for="selectedLangue">  </label>
+            <select name="selectedLangue" id="selectedLangue" [(ngModel)]="selectedLangue" (change)="switchLang()"
+              class="form-control custom-select custom-select-sm custom-light" >
+              <option value="en"> {{ 'English' | translate }} </option>
+              <option value="fr"> {{ 'Frensh' | translate }} </option>
+            </select>
+          </div>
         </li>
       </ul>
     </div>

@@ -15,7 +15,7 @@ import { UpdateRoleComponent } from './components/roles/update-role/update-role.
 import { ShowTasksComponent } from './components/tasks/show-tasks/show-tasks.component';
 import { AddTaskComponent } from './components/tasks/add-task/add-task.component';
 import { UpdateTaskComponent } from './components/tasks/update-task/update-task.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule, NG_VALIDATORS}   from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -33,11 +33,17 @@ import { ProgressDirective } from './directives/progress.directive';
 import { NotIfDirective } from './directives/not-if.directive';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { ForbiddenValidatorDirective } from './directives/forbidden-validator.directive';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 
 
 export function tokenGetter() {
   return localStorage.getItem('Authorization');
+}
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -82,6 +88,13 @@ export function tokenGetter() {
         authScheme: '',
         whitelistedDomains: ['localhost:8080'],
         blacklistedRoutes: []
+      }
+    }),
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
       }
     })
   ],

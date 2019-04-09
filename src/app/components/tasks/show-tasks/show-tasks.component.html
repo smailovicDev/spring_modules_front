@@ -8,14 +8,14 @@
             <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">id</th>
-                    <th scope="col"> Task name </th>
-                    <th scope="col"> Description </th>
-                    <th scope="col"> Num de série </th>
-                    <th scope="col"> Date creation </th>
-                    <th scope="col"> Date fin </th>
-                    <th scope="col"> statut </th>
-                    <th scope="col"> % d'avancement </th>
+                    <th scope="col"> {{ 'task.id' | translate }}</th>
+                    <th scope="col"> {{ 'task.name' | translate }} </th>
+                    <th scope="col"> {{ 'task.description' | translate }} </th>
+                    <th scope="col"> {{ 'task.numSerie' | translate }}</th>
+                    <th scope="col"> {{ 'task.dateCreation' | translate }}</th>
+                    <th scope="col"> {{ 'task.finaleDate' | translate }} </th>
+                    <th scope="col"> {{ 'task.statut' | translate }}</th>
+                    <th scope="col"> % {{ 'task.avancement' | translate }} </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                 </tbody>
               </table>
               <button class="btn btn-sm btn-block btn-primary my-5 " [routerLink]="[ '/tasks/add']"   type="submit">
-                Add task </button>
+                {{ 'task.add' | translate }} </button>
         </div>
       </div>
     </div>

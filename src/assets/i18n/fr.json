@@ -1,0 +1,21 @@
+{
+    "task":{
+        "id":"Id",
+        "name":"Nom",
+        "description":"Description",
+        "numSerie": "Numéro de série",
+        "dateCreation": "Date creation ",
+        "finaleDate": "Date fin",
+        "statut": "Statut",
+        "avancement":"D'avancement",
+        "add":"Ajouter une tache",
+        "save":"Enregistrer",
+        "tasks":"Taches",
+        "users":"Utilisateurs",
+        "Roles":"Roles"
+    },
+    "useReactive":"Utiliser formulaire reactive",
+    "logout": "Se déconnecter",
+    "English":"Anglais",
+    "Frensh":"Français"
+}

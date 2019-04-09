@@ -7,7 +7,7 @@
           <input type="checkbox" class="form-check-input" name="useReactive" id="useReactive" 
           [(ngModel)]="useReactive"
           >
-          Use reactive forms
+          {{ 'useReactive' | translate }}
         </label>
       </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12 mx-auto my-3">
           <form >
           <div class="form-group">
-            <label for="taskName"> Task name</label>
+            <label for="taskName"> {{ 'task.name' | translate }}</label>
             <input type="text" name="taskName" id="taskName" class="form-control" [(ngModel)]="task.taskName"   
              placeholder="" aria-describedby="helpId" [appForbiddenValidator]="task"   #taskName="ngModel" minlength="3" required>
           </div>
@@ -38,7 +38,7 @@
           <!-- this was an example of input validation useing html and input reference  -->
           <!-- app-ngx-editor is and custom ckEditor from ngx bootstrap we need to install it first the we can user lik this  -->
           <div class="form-group">
-              <label for="description"> Description</label>
+              <label for="description"> {{ 'task.description' | translate }}</label>
                <app-ngx-editor name="description" id="description"  #description="ngModel" required minlength="3"
                 [placeholder]="'Set description her ...'"  [(ngModel)]="task.description" ></app-ngx-editor>
           </div>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="form-group">
-              <label for="serId"> Serial id</label>
+              <label for="serId"> {{ 'task.numSerie' | translate }}</label>
               <input type="number" name="serId" id="serId" class="form-control" [(ngModel)]="task.serId" max="80000" min="99"
               placeholder="" aria-describedby="helpId">
           </div>
@@ -64,13 +64,13 @@
           the probleme that every browser use his custom implementation so we can use a generic one like this ;) -->
 
           <div class="form-group">
-              <label for="dateCreation"> Date creation</label>
+              <label for="dateCreation"> {{ 'task.dateCreation' | translate }}</label>
               <input type="text" name="dateCreation" id="dateCreation" 
                bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
                class="form-control"[(ngModel)]="task.dateCreation" placeholder="" aria-describedby="helpId">
           </div>
           <div class="form-group">
-              <label for="dateFin"> Date fin </label>
+              <label for="dateFin"> {{ 'task.finaleDate' | translate }} </label>
               <input type="text" name="dateFin" id="dateFin" class="form-control"
                bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
               [(ngModel)]="task.dateFin" placeholder="" aria-describedby="helpId">
@@ -79,7 +79,7 @@
           <div class="form-check">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input" name="status" id="status" [(ngModel)]="task.status" >
-              Task Status
+              {{ 'task.statut' | translate }}
             </label>
 
             <!-- appNotIf is a custom strictural directive that work as the opposite of ngif
@@ -90,7 +90,7 @@
           </div>
 
           <div class="form-group">
-            <label for="pourcent"></label>
+            <label for="pourcent"> % {{ 'task.avancement' | translate }}</label>
             <input type="number" name="pourcent" id="pourcent" class="form-control" [(ngModel)]="task.pourcent"
             placeholder="" aria-describedby="helpId" max="100" min="0"  (click)="getVal()"  >
             <div class="progress my-2">
@@ -107,7 +107,7 @@
                 </div>
               </div>
           </div>
-          <button class="btn btn-sm btn-block btn-primary my-5 " (click)="saveTask()"   type="submit"> Save </button>
+          <button class="btn btn-sm btn-block btn-primary my-5 " (click)="saveTask()"   type="submit"> {{ 'task.save' | translate }} </button>
         </form>
         </div>
     </div>
@@ -124,7 +124,7 @@
 
           <form [formGroup]="taskForm" (ngSubmit)="onSubmitReactive( )" >
           <div class="form-group">
-            <label for="taskName"> Task name</label>
+            <label for="taskName"> {{ 'task.name' | translate }} </label>
             <input type="text" name="taskName" id="taskName" class="form-control"  formControlName="taskName"
              placeholder="" aria-describedby="helpId" >
           </div>
@@ -149,25 +149,25 @@
           </div>
           
           <div class="form-group">
-              <label for="description"> Description</label>
+              <label for="description"> {{ 'task.description' | translate }}</label>
                <app-ngx-editor name="description" id="description" formControlName="description"
                 [placeholder]="'Set description her ...'"  ></app-ngx-editor>
           </div>
          
           <div class="form-group">
-              <label for="serId"> Serial id</label>
+              <label for="serId"> {{ 'task.numSerie' | translate }} </label>
               <input type="number" name="serId" id="serId" class="form-control" formControlName="serId"
               placeholder="" aria-describedby="helpId">
           </div>
 
           <div class="form-group">
-              <label for="dateCreation"> Date creation</label>
+              <label for="dateCreation"> {{ 'task.dateCreation' | translate }} </label>
               <input type="text" name="dateCreation" id="dateCreation" 
                bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
                class="form-control" formControlName="dateCreation" placeholder="" aria-describedby="helpId">
           </div>
           <div class="form-group">
-              <label for="dateFin"> Date fin </label>
+              <label for="dateFin"> {{ 'task.finaleDate' | translate }} </label>
               <input type="text" name="dateFin" id="dateFin" class="form-control"
                bsDatepicker [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY, h:mm:ss' }"
                formControlName="dateFin" placeholder="" aria-describedby="helpId">
@@ -176,12 +176,12 @@
           <div class="form-check">
             <label class="form-check-label">
               <input type="checkbox" class="form-check-input" name="status" id="status" formControlName="status" >
-              Task Status
+              {{ 'task.statut' | translate }}
             </label>
           </div>
 
           <div class="form-group">
-            <label for="pourcent"></label>
+            <label for="pourcent"> % {{ 'task.avancement' | translate }} </label>
             <input type="number" name="pourcent" id="pourcent" class="form-control" formControlName="pourcent"
             placeholder="" aria-describedby="helpId" max="100" min="0"  >
             <div class="progress my-2">
@@ -193,7 +193,7 @@
             </div>
           </div>
          
-          <button class="btn btn-sm btn-block btn-primary my-5" *ngIf="taskForm.status != 'INVALID'" type="submit"> Save reactive </button>
+          <button class="btn btn-sm btn-block btn-primary my-5" *ngIf="taskForm.status != 'INVALID'" type="submit"> {{ 'task.save' | translate }} </button>
         </form>
         </div>
         
